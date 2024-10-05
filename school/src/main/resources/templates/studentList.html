@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список студентов</title>
+</head>
+<body>
+<h1>Список студентов</h1>
+<form action="/students/add" method="post" th:object="${student}">
+    <input type="text" name="name" placeholder="Имя" th:field="*{name}" required>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Имя не должно быть меньше чем 3 символа</div>
+    <input type="text" name="firstName" placeholder="Фамилия" th:field="*{firstName}" required>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Фамилия не должна быть меньше чем 3 символа</div>
+    <input type="text" name="lastName" placeholder="Отчество" th:field="*{lastName}">
+    <input type="text" name="corpEmail" placeholder="Емеил" th:field="*{corpEmail}">
+    <div th:if="${#fields.hasErrors('corpEmail')}" th:errors="*{corpEmail}">Email должен быть корректно заполнен</div>
+    <button type="submit" formmethod="post">Добавить студента</button>
+</form>
+
+<h2>Все студенты: </h2>
+<ul>
+    <th:block th:each="student : ${students}">
+        <li>
+            <span th:text="${student.name} + ' ' + ${student.firstName} + ' ' + ${student.lastName} + ' ' + ${student.corpEmail}"></span>
+            <form action="/students/update" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${student.id}">
+                <input type="text" name="name" th:value="${student.name}" placeholder="Имя" required>
+                <input type="text" name="firstName" th:value="${student.firstName}" placeholder="Фамилия" required>
+                <input type="text" name="lastName" th:value="${student.lastName}" placeholder="Отчество">
+                <input type="text" name="corpEmail" th:value="${student.corpEmail}" placeholder="Емеил">
+                <button type="submit" formmethod="post">Обновить</button>
+            </form>
+            <form action="/students/delete" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${student.id}">
+                <button type="submit" formmethod="post">Удалить</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>

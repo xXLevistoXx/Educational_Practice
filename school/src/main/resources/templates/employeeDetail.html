@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Детали сотрудника</title>
+</head>
+<body>
+<h1>Детали сотрудника</h1>
+<div>
+  <p><strong>ID:</strong> <span th:text="${employee.id}"></span></p>
+  <p><strong>Имя:</strong> <span th:text="${employee.name}"></span></p>
+  <p><strong>Фамилия:</strong> <span th:text="${employee.firstName}"></span></p>
+  <p><strong>Отчество:</strong> <span th:text="${employee.lastName}"></span></p>
+  <p><strong>e-mail:</strong> <span th:text="${employee.corpEmail}"></span></p>
+  <p><strong>Должность:</strong> <span th:text="${employee.position}"></span></p>
+</div>
+<a href="/employees/all">Вернуться к списку сотрудников</a>
+</body>
+</html>

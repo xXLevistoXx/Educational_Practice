@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Результаты поиска сотрудников</title>
+</head>
+<body>
+<h1>Результаты поиска сотрудников</h1>
+
+<form action="/employees/search" method="get">
+  <input type="text" name="name" placeholder="Поиск по имени">
+  <button type="submit">Поиск</button>
+</form>
+
+<h2>Найденные сотрудники: </h2>
+<ul>
+  <th:block th:each="employee : ${employees}">
+    <li th:if="${!employee.deleted}">
+      <span th:text="${employee.name} + ' ' + ${employee.firstName} + ' ' + ${employee.lastName} + ' ' + ${employee.corpEmail}"></span>
+      <form action="/employees/update" method="post" style="display:inline;">
+        <input type="hidden" name="id" th:value="${employee.id}">
+        <input type="text" name="name" th:value="${employee.name}" placeholder="Имя" required>
+        <input type="text" name="firstName" th:value="${employee.firstName}" placeholder="Фамилия" required>
+        <input type="text" name="lastName" th:value="${employee.lastName}" placeholder="Отчество">
+        <input type="text" name="corpEmail" th:value="${employee.corpEmail}" placeholder="Email">
+        <input type="text" name="position" th:value="${employee.position}" placeholder="Должность">
+        <button type="submit" formmethod="post">Обновить</button>
+      </form>
+      <form action="/employees/delete" method="post" style="display:inline;">
+        <input type="hidden" name="id" th:value="${employee.id}">
+        <button type="submit" formmethod="post">Удалить</button>
+      </form>
+      <form action="/employees/logicalDelete" method="post" style="display:inline;">
+        <input type="hidden" name="id" th:value="${employee.id}">
+        <button type="submit" formmethod="post">Логическое удаление</button>
+      </form>
+    </li>
+  </th:block>
+</ul>
+
+<a href="/employees/all">Вернуться к списку всех сотрудников</a>
+</body>
+</html>
