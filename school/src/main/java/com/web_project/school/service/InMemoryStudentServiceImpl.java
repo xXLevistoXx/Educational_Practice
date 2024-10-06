@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class InMemoryStudentServiceImpl implements StudentService{
@@ -21,7 +22,7 @@ public class InMemoryStudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentModel findStudentById(Long id) {
+    public StudentModel findStudentById(UUID id) {
         return studentRepository.findById(id).orElse(null);
     }
 
@@ -39,7 +40,7 @@ public class InMemoryStudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void deleteStudent(Long id){
+    public void deleteStudent(UUID id){
         if (studentRepository.existsById(id)) {
             studentRepository.deleteById(id);
         }
