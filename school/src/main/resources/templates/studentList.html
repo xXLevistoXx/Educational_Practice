@@ -10,10 +10,21 @@
     <input type="text" name="name" placeholder="Имя" th:field="*{name}" required>
     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Имя не должно быть меньше чем 3 символа</div>
     <input type="text" name="firstName" placeholder="Фамилия" th:field="*{firstName}" required>
-    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Фамилия не должна быть меньше чем 3 символа</div>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Фамилия не должна быть меньше чем 3
+        символа
+    </div>
     <input type="text" name="lastName" placeholder="Отчество" th:field="*{lastName}">
     <input type="text" name="corpEmail" placeholder="Емеил" th:field="*{corpEmail}">
     <div th:if="${#fields.hasErrors('corpEmail')}" th:errors="*{corpEmail}">Email должен быть корректно заполнен</div>
+    <div>
+        <label for="university">Университет: </label>
+        <select id="university" th:field="*{university}">
+            <option th:each="university : ${universities}" th:value="${university.id}"
+                    th:text="${university.name}"></option>
+        </select>
+    </div>
+    <input type="text" name="passport.series" placeholder="Серия паспорта" th:field="*{passport.series}" required>
+    <input type="text" name="passport.number" placeholder="Номер паспорта" th:field="*{passport.number}" required>
     <button type="submit" formmethod="post">Добавить студента</button>
 </form>
 
@@ -28,6 +39,8 @@
                 <input type="text" name="firstName" th:value="${student.firstName}" placeholder="Фамилия" required>
                 <input type="text" name="lastName" th:value="${student.lastName}" placeholder="Отчество">
                 <input type="text" name="corpEmail" th:value="${student.corpEmail}" placeholder="Емеил">
+                <input type="text" name="passport.series" th:value="${student.passport.series}" placeholder="Серия паспорта">
+                <input type="text" name="passport.number" th:value="${student.passport.number}" placeholder="Номер паспорта">
                 <button type="submit" formmethod="post">Обновить</button>
             </form>
             <form action="/students/delete" method="post" style="display:inline;">
