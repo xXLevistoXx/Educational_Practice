@@ -2,20 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Результаты поиска сотрудников</title>
+    <title>Список сотрудников</title>
 </head>
 <body>
-<h1>Результаты поиска сотрудников</h1>
-
-<form action="/employees/search" method="get">
-    <input type="text" name="value" placeholder="Поиск по любому полю">
-    <button type="submit">Поиск</button>
+<h1>Список сотрудников</h1>
+<form action="/employees/add" method="post" th:object="${employee}">
+    <input type="text" name="name" placeholder="Имя" th:field="*{name}" required>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Имя не должно быть меньше чем 3 символа</div>
+    <input type="text" name="firstName" placeholder="Фамилия" th:field="*{firstName}" required>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Фамилия не должна быть меньше чем 3 символа</div>
+    <input type="text" name="lastName" placeholder="Отчество" th:field="*{lastName}">
+    <input type="text" name="corpEmail" placeholder="Email" th:field="*{corpEmail}">
+    <div th:if="${#fields.hasErrors('corpEmail')}" th:errors="*{corpEmail}">Email должен быть корректно заполнен</div>
+    <div>
+        <label for="subject">Предмет: </label>
+        <select id="subject" th:field="*{subject}">
+            <option th:each="subject : ${subjects}" th:value="${subject.id}"
+                    th:text="${subject.name}"></option>
+        </select>
+    </div>
+    <input type="text" name="position.name" placeholder="Название должности" th:field="*{position.name}" required>
+    <input type="text" name="position.salary" placeholder="Заработная плата" th:field="*{position.salary}" required>
+    <button type="submit" formmethod="post">Добавить сотрудника</button>
 </form>
 
-<h2>Найденные сотрудники: </h2>
+<h2>Все сотрудники: </h2>
 <ul>
     <th:block th:each="employee : ${employees}">
-        <li th:if="${!employee.deleted}">
+        <li>
             <span th:text="${employee.name} + ' ' + ${employee.firstName} + ' ' + ${employee.lastName} + ' ' + ${employee.corpEmail}"></span>
             <form action="/employees/update" method="post" style="display:inline;">
                 <input type="hidden" name="id" th:value="${employee.id}">
@@ -23,7 +37,8 @@
                 <input type="text" name="firstName" th:value="${employee.firstName}" placeholder="Фамилия" required>
                 <input type="text" name="lastName" th:value="${employee.lastName}" placeholder="Отчество">
                 <input type="text" name="corpEmail" th:value="${employee.corpEmail}" placeholder="Email">
-                <input type="text" name="position" th:value="${employee.position}" placeholder="Должность">
+                <input type="text" name="position.name" th:value="${employee.position.name}" placeholder="Название должности">
+                <input type="text" name="position.salary" th:value="${employee.position.salary}" placeholder="Заработная плата">
                 <button type="submit" formmethod="post">Обновить</button>
             </form>
             <form action="/employees/delete" method="post" style="display:inline;">
@@ -37,7 +52,5 @@
         </li>
     </th:block>
 </ul>
-
-<a href="/employees/all">Вернуться к списку всех сотрудников</a>
 </body>
 </html>

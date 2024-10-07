@@ -5,22 +5,23 @@ import com.web_project.school.model.StudentModel;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public interface EmployeeService {
     public List<EmployeeModel> findAllEmployees();
 
-    public EmployeeModel findEmployeeById(Long id);
+    public EmployeeModel findEmployeeById(UUID id);
 
     public EmployeeModel addEmployee(EmployeeModel employee);
 
     public EmployeeModel updateEmployee(EmployeeModel employee);
 
-    public void deleteEmployee(Long id);
+    public void deleteEmployee(UUID id);
 
 
     public List<EmployeeModel> searchByAnyField(String value);
 
 
-    public void logicalDeleteEmployee(Long id);
+    public void logicalDeleteEmployee(UUID id);
 
 }

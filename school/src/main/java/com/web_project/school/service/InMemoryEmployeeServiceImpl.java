@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class InMemoryEmployeeServiceImpl implements EmployeeService {
@@ -23,7 +24,7 @@ public class InMemoryEmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeModel findEmployeeById(Long id) {
+    public EmployeeModel findEmployeeById(UUID id) {
         return employeeRepository.findById(id).orElse(null);
     }
 
@@ -41,7 +42,7 @@ public class InMemoryEmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(UUID id) {
         if (employeeRepository.existsById(id)) {
             employeeRepository.deleteById(id);
         }
@@ -53,7 +54,7 @@ public class InMemoryEmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void logicalDeleteEmployee(Long id) {
+    public void logicalDeleteEmployee(UUID id) {
         Optional<EmployeeModel> employeeOptional = employeeRepository.findById(id);
         if (employeeOptional.isPresent()) {
             EmployeeModel employee = employeeOptional.get();

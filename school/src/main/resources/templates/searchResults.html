@@ -8,7 +8,7 @@
 <h1>Результаты поиска сотрудников</h1>
 
 <form action="/employees/search" method="get">
-  <input type="text" name="name" placeholder="Поиск по имени">
+  <input type="text" name="value" placeholder="Поиск по любому полю">
   <button type="submit">Поиск</button>
 </form>
 
@@ -23,7 +23,7 @@
         <input type="text" name="firstName" th:value="${employee.firstName}" placeholder="Фамилия" required>
         <input type="text" name="lastName" th:value="${employee.lastName}" placeholder="Отчество">
         <input type="text" name="corpEmail" th:value="${employee.corpEmail}" placeholder="Email">
-        <input type="text" name="position" th:value="${employee.position}" placeholder="Должность">
+        <input type="text" name="subject" th:value="${employee.subject}" placeholder="Предмет">
         <button type="submit" formmethod="post">Обновить</button>
       </form>
       <form action="/employees/delete" method="post" style="display:inline;">
@@ -37,7 +37,5 @@
     </li>
   </th:block>
 </ul>
-
-<a href="/employees/all">Вернуться к списку всех сотрудников</a>
 </body>
 </html>

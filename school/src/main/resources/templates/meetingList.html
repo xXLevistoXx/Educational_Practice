@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список совещаний</title>
+</head>
+<body>
+<h1>Список совещаний</h1>
+<form action="/meetings/add" method="post" th:object="${meeting}">
+  <input type="text" name="name" placeholder="Название" th:field="*{name}" required>
+  <div>
+    <label for="employees">Сотрудники-участники: </label>
+    <select id="employees" multiple th:field="*{employees}">
+      <option th:each="employee : ${employees}" th:value="${employee.id}"
+              th:text="${employee.name}"></option>
+    </select>
+  </div>
+  <button type="submit" formmethod="post">Добавить совещание</button>
+</form>
+<h2>Все совещания: </h2>
+<ul>
+  <th:block th:each="meeting : ${meetings}">
+    <li>
+      <span th:text="${meeting.name}"></span>
+      <ul>
+        <li th:each="employee : ${meeting.employees}" th:text="${employee.name}"></li>
+      </ul>
+    </li>
+  </th:block>
+</ul>
+</body>
+</html>
