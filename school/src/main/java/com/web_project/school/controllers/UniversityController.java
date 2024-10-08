@@ -1,11 +1,10 @@
 package com.web_project.school.controllers;
 
-import com.web_project.school.model.PassportModel;
 import com.web_project.school.model.UniversityModel;
-import com.web_project.school.service.UniversityService;
 import com.web_project.school.service.UniversityService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +14,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/universities")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class UniversityController {
     @Autowired
     public UniversityService universityService;
