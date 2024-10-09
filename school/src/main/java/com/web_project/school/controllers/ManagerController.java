@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
-@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
-public class UserController {
+@RequestMapping("/manager")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+public class ManagerController {
 
     @GetMapping("/dashboard")
-    public String userDashboard() {
-        return "userDashboard";
+    public String managerDashboard() {
+        return "managerDashboard";
     }
 }

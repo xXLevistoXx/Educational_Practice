@@ -4,6 +4,7 @@ import com.web_project.school.model.SubjectModel;
 import com.web_project.school.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/subjects")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
 public class SubjectController {
     @Autowired
     public SubjectService subjectService;

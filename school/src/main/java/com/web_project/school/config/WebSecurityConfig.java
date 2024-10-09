@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     }
 
     @PostConstruct
-    public void createDefaultUser(){
+    public void createDefaultUser() {
         if (!userRepository.existsByUsername("admin")) {
             UserModel user = new UserModel();
             user.setUsername("admin");
@@ -38,6 +38,14 @@ public class WebSecurityConfig {
             user.setActive(true);
             user.setRoles(Collections.singleton(RoleEnum.ADMIN));
             userRepository.save(user);
+        }
+        if (!userRepository.existsByUsername("manager1")) {
+            UserModel manager = new UserModel();
+            manager.setUsername("manager1");
+            manager.setPassword(passwordEncoder.encode("Manager_123"));
+            manager.setActive(true);
+            manager.setRoles(Collections.singleton(RoleEnum.MANAGER));
+            userRepository.save(manager);
         }
     }
 
@@ -66,7 +74,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(authorize ->
                         authorize.requestMatchers("/login", "/registration").permitAll()
                                 .anyRequest().authenticated())
-                .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/students/all").permitAll())
+                .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/meetings/all").permitAll())
                 .logout(logout -> logout.permitAll())
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable());

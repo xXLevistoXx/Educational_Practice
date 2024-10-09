@@ -5,6 +5,7 @@ import com.web_project.school.service.EmployeeService;
 import com.web_project.school.service.MeetingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 @Controller
 @RequestMapping("/meetings")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
 public class MeetingController {
     @Autowired
     public MeetingService meetingService;

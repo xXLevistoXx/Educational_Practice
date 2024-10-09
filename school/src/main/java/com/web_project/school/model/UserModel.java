@@ -1,6 +1,9 @@
 package com.web_project.school.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -10,8 +13,16 @@ public class UserModel {
     @GeneratedValue
     private Long idUser;
 
+    @NotBlank(message = "Имя пользователя не может быть пустым")
     private String username;
+
+    @NotBlank(message = "Пароль не может быть пустым")
+    @Size(min = 8, message = "Пароль должен быть не менее 8 символов")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+            message = "Пароль должен содержать хотя бы одну цифру, одну букву в нижнем регистре," +
+                    " одну букву в верхнем регистре, один специальный символ и не содержать пробелов")
     private String password;
+
     private boolean active;
 
     @ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
